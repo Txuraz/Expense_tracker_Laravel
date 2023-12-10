@@ -43,13 +43,7 @@ class UserDashboardController extends Controller
             $query->where('type', $type);
         }
 
-        $transaction = $query->paginate(5);
 
-        $total_income = $query->where('type', 'income')->sum('amount');
-        $total_expenses = $query->where('type', 'expenses')->sum('amount');
-        $total_balance = $total_income - $total_expenses;
-
-        return view('UserDashboard', compact('user', 'transaction', 'total_income', 'total_expenses', 'total_balance'));
     }
 
 }
