@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddNewEntryFormRequest;
 use App\Http\Requests\RegisterFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -15,6 +17,11 @@ class LoginController extends Controller
 
     public function loginUser(Request $request)
     {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials))
@@ -25,7 +32,10 @@ class LoginController extends Controller
             }
             elseif(Auth::user()->user_type == 'regular')
             {
-                return redirect()->intended('/dashboard');
+                if (Auth::user()->is_email_verified){
+                    return redirect()->intended('/dashboard');
+                }
+                return redirect()->back()->with('message', 'Email is not verified');
             }
 
             return redirect()->back()->withErrors([

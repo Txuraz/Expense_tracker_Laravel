@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterFormRequest;
+use App\Mail\VerifyEmailMail;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -20,8 +23,16 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password)
         ];
 
-        User::create($data);
-        return redirect()->back()->with('message', 'Successfully Registered');
+        $user = User::create($data);
+
+        $token  = Str::random(32);
+
+        $user->verificationToken()->create([
+            'token' => $token,
+        ]);
+
+        Mail::to($user->email)->send(new VerifyEmailMail($user, $token));
+       return redirect()->back()->with('message', 'Successfully Registered');
     }
 
 

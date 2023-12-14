@@ -26,6 +26,9 @@ $app = new Illuminate\Foundation\Application(
 |
 */
 
+$app->register(\Illuminate\Mail\MailServiceProvider::class);
+
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class

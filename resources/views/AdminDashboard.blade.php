@@ -16,26 +16,24 @@
     </div>
 
     <div class="card-container">
-        <!-- Total Users Card -->
+
         <div class="card">
             <h4 style="text-align: center; margin-bottom: 10px;">Total Users</h4>
             <p style="text-align: center; margin: 0; font-size: 50px">{{$total}}</p>
         </div>
 
-        <!-- Admin Name Card -->
+
         <div class="card">
             <h1 style="text-align: center; margin-bottom: 10px;">{{$user->name}}</h1>
             <p style="text-align: center; margin: 0;">Admin User</p>
         </div>
 
-        <!-- Add Admin User Button Card -->
         <div class="card" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAdminModal" style="margin-bottom: 10px;">Add Admin</button>
             <a href="{{ route('logout') }}"><button type="button" class="btn btn-danger">Logout</button></a>
         </div>
     </div>
 
-    <!-- Total User Table -->
+
     <div class="table-container">
         <h4>Total Users</h4>
         <table class="table table-bordered">
@@ -50,7 +48,7 @@
             <tbody>
             @foreach($userdata as $data)
                 <tr>
-                    <td>{{$data->name}}</td>
+                    <td><a href="{{ route('userDetails.adminView', $data->id) }}">{{$data->name}}</a></td>
                     <td>{{$data->email}}</td>
                     <td>{{$data->user_type}}</td>
                     <td>
@@ -67,37 +65,7 @@
     </div>
 </div>
 
-<!-- Add Admin User Modal -->
-<div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addAdminModalLabel">Add Admin User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your form elements here -->
-                <form>
-                    <div class="form-group">
-                        <label for="adminName">Name</label>
-                        <input type="text" class="form-control" id="adminName" placeholder="Enter name">
-                    </div>
-                    <div class="form-group">
-                        <label for="adminEmail">Email</label>
-                        <input type="email" class="form-control" id="adminEmail" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="adminName">Password</label>
-                        <input type="text" class="form-control" id="adminPassword" placeholder="Enter name">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Admin User</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Delete User Modal -->
 @foreach($userdata as $data)
@@ -136,7 +104,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Add your form elements here -->
                     <form  action="{{route('user.update', $data->id)}}" method="post">
                         @method('patch')
                         @csrf

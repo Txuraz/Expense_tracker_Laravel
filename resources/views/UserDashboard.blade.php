@@ -92,11 +92,19 @@
                     @csrf
                     <div class="form-group">
                         <label for="amount">Amount</label>
-                        <input name="amount" type="number" class="form-control" id="amount" placeholder="Enter amount">
+                        <input name="amount" type="number" class="form-control" id="amount" placeholder="Enter amount" required>
+                        @error('amount')
+                        <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
+
+
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text"  name="category" class="form-control" id="subject" placeholder="Enter subject">
+                        <input type="text"  name="category" class="form-control" id="subject" placeholder="Enter subject" required>
+                        @error('category')
+                        <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="entryType">Type</label>
@@ -107,7 +115,7 @@
                     </div>
                     <div class="form-group">
                         <label for="entryDate">Date</label>
-                        <input name="date" type="date" class="form-control" id="entryDate">
+                        <input name="date" type="date" class="form-control" id="entryDate" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>

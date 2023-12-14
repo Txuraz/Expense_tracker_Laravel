@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Register Form</title>
+    <title>Login Form</title>
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 </head>
 
@@ -12,6 +12,7 @@
     @csrf
     <h2> Login </h2>
 
+{{--    @dd(session()->all())--}}
     @if(session('message'))
         <h3>{{ session('message') }}</h3>
     @endif
