@@ -31,6 +31,10 @@ Route::middleware(['admin'])->group( function () {
     Route::delete('/admin/dashboard/user-details/{id}', [AdminDashboardController::class, 'DeleteUserDetails'])->name('userDetails.delete');
 });
 
+Route::get('/', function () {
+    return view('index');
+});
+
 Route::get('/login', [LoginController::class, 'loginForm'])->name('login.form');
 Route::post('/login', [LoginController::class, 'loginUser'])->name('auth.user');
 
